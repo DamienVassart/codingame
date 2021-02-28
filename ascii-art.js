@@ -42,18 +42,23 @@ const L = parseInt(readline()); // Width of a letter
 const H = parseInt(readline()); // Height of a letter
 const T = readline(); // Line of text to display, with N ASCII characters
 
-var charCodes = [...T.replace(/[^a-zA-Z]/g, '?').toUpperCase()].map(c => c !== '?' ? (c.charCodeAt(0) - 65) * L : 26 * L);
-var rows = [];
+let codes = [...T].map(c => {
+    c = c.replace(/[^a-zA-Z]/g, '?').toUpperCase();
+    c = ((c == '?') ? 26 : (c.charCodeAt(0) - 65)) * L;
+    return c;
+});
+
+let rows = [];
 
 for (let i = 0; i < H; i++) {
     const ROW = readline();
     rows.push(ROW);
 }
 
-for(let i = 0; i < rows.length; i++) {
+for (let row of rows) {
     let answer = '';
-    for (let j = 0; j < charCodes.length; j++) {
-        answer += rows[i].slice(charCodes[j], charCodes[j] + L);
+    for (let code of codes) {
+        answer += row.slice(code, code + L);
     }
     console.log(answer);
 }
