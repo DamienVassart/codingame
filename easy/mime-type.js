@@ -44,12 +44,6 @@ Constraints
 
 const N = parseInt(readline()); // Number of elements which make up the association table.
 const Q = parseInt(readline()); // Number Q of file names to be analyzed. 
-
-let fileExtensions = [];
-let mimeTypes = [];
-let files = [];
-let result = '';
-
 for (let i = 0; i < N; i++) {
     var inputs = readline().split(' ');
     const EXT = inputs[0]; // file extension
@@ -61,6 +55,11 @@ for (let i = 0; i < Q; i++) {
     const FNAME = readline(); // One file name per line.
     files.push(FNAME.toLowerCase());
 }
+
+let fileExtensions = [];
+let mimeTypes = [];
+let files = [];
+let result = '';
 
 for (let file of files) {
     let ext = file.split('.'); 
