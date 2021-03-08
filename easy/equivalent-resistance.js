@@ -83,7 +83,7 @@ for (let i = 0; i < N; i++) {
     VALUES[name] = R;
 }
 
-const input= readline();
+const input = readline();
 
 const circuit = input.split(' ').map(e => VALUES.hasOwnProperty(e) ? VALUES[e] : e);
 
