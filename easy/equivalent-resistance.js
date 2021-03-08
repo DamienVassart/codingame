@@ -68,7 +68,7 @@ Constraints
  * the standard input according to the problem statement.
  **/
 
-const series = arr => [arr.reduce((acc, val) => acc + val , 0)];
+const series = arr => [arr.reduce((acc, val) => acc + val, 0)];
 
 const parallel = arr => [1 / (arr.reduce((acc, val) => acc + (1 / val), 0))];
 
