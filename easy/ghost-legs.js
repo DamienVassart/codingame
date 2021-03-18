@@ -53,14 +53,11 @@ for (let i = 0; i < H; i++) {
     lines.push(line);
 }
 
-const topLine = lines[0].split('');
-const bottomLine = lines[H-1].split('');
-
 for (let i = 0; i < W; i+=3) {
     let j = i, h = 0;
     while(++h < H-1) {
         if (lines[h].charAt(j-1) === '-') j -= 3;
         else if (lines[h].charAt(j+1) === '-') j += 3;
     }
-    console.log(topLine[i] + bottomLine[j]);
+    console.log(lines[0].charAt(i) + lines[H-1].charAt(j));
 }
