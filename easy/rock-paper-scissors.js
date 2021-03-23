@@ -64,12 +64,18 @@ const SIGNS = {
 }
 
 const fight = (player1, player2) => {
-    if (player1.sign === player2.sign) [winner, loser] = player1.num < player2.num ? [player1, player2] : [player2, player1];
-    else [winner, loser] = SIGNS[player1.sign].includes(player2.sign) ? [player1, player2] : [player2, player1];
+    if (player1.sign === player2.sign) {
+        [winner, loser] = player1.num < player2.num ? [player1, player2] : [player2, player1];
+        player1.num < player2.num ? player1.op.push(player2.num) : player2.op.push(player1.num);
+    } 
+    else {
+        [winner, loser] = SIGNS[player1.sign].includes(player2.sign) ? [player1, player2] : [player2, player1];
+        SIGNS[player1.sign].includes(player2.sign) ? player1.op.push(player2.num) : player2.op.push(player1.num);
+    }
     return {winner: winner, loser: loser};
 }
 
-const eliminator = arr => arr.reduce((res, _, i, arr) => res.concat(i % 2 === 0 ? fight(arr[i], arr[i+1]).winner : []), [])
+const eliminator = arr => arr.reduce((res, _, i, arr) => res.concat(i % 2 === 0 ? fight(arr[i], arr[i+1]).winner : []), []);
 
 const N = parseInt(readline());
 
@@ -79,19 +85,10 @@ for (let i = 0; i < N; i++) {
     var inputs = readline().split(' ');
     const NUMPLAYER = parseInt(inputs[0]);
     const SIGNPLAYER = inputs[1];
-    players.push({num: NUMPLAYER, sign: SIGNPLAYER});
+    players.push({num: NUMPLAYER, sign: SIGNPLAYER, op: []});
 }
 
-var results = [];
+while (players.length > 1) players = eliminator(players);
 
-while (players.length > 1) {
-    for (let i = 0; i < players.length; i += 2) {
-        results.push([fight(players[i], players[i+1]).winner.num, fight(players[i], players[i+1]).loser.num]);
-    }
-    players = eliminator(players);
-}
-
-const finalWinner = results.slice(-1)[0][0];
-
-console.log(finalWinner);
-console.log(results.reduce((res, val) => res.concat(val.includes(finalWinner) ? val[1] : []), []).join(' '));
+console.log(players[0].num);
+console.log(players[0].op.join(' '));
