@@ -47,7 +47,6 @@ Line 2: the list of its opponents separated by spaces
 Constraints
 N is a 2^k value (2, 4, 8, 16, ..., 1024)
 2 ≤ N ≤ 1024
-
 */
 
 /**
@@ -91,7 +90,7 @@ for (let i = 0; i < N; i++) {
     players.push({num: NUMPLAYER, sign: SIGNPLAYER, op: []});
 }
 
-players = eliminator(players);
+var winner = eliminator(players);
 
-console.log(players.num);
-console.log(players.op.join(' '));
+console.log(winner.num);
+console.log(winner.op.join(' '));
