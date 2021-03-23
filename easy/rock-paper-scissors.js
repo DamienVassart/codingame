@@ -75,7 +75,10 @@ const fight = (player1, player2) => {
     return {winner: winner, loser: loser};
 }
 
-const eliminator = arr => arr.reduce((res, _, i, arr) => res.concat(i % 2 === 0 ? fight(arr[i], arr[i+1]).winner : []), []);
+const eliminator = arr => {
+    if (arr.length == 1) return arr.pop();
+    return eliminator(arr.reduce((res, _, i, arr) => res.concat(i % 2 === 0 ? fight(arr[i], arr[i+1]).winner : []), []));
+}
 
 const N = parseInt(readline());
 
@@ -88,7 +91,7 @@ for (let i = 0; i < N; i++) {
     players.push({num: NUMPLAYER, sign: SIGNPLAYER, op: []});
 }
 
-while (players.length > 1) players = eliminator(players);
+players = eliminator(players);
 
-console.log(players[0].num);
-console.log(players[0].op.join(' '));
+console.log(players.num);
+console.log(players.op.join(' '));
