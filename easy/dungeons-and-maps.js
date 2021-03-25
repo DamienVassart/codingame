@@ -28,10 +28,7 @@ const move = (map) => {
     return map;
 };
 
-const explore = (map) => {
-    if (map.status) return map;
-    return map = explore(move(map));
-}
+const explore = map => map.status ? map : explore(move(map));
 
 var inputs = readline().split(' '); 
 const w = parseInt(inputs[0]); 
