@@ -47,16 +47,14 @@ Message consists only of uppercase letters (A-Z)
 
 const alphabet = [...new Array(26).keys()].map((_, i) => String.fromCharCode(i+65));
 
-const caesarMap = (str, n) => {
-    return [...str].reduce((cipherText, l, i) => {
+const caesarMap = (plainText, n) => {
+    return [...plainText].reduce((cipherText, l, i) => {
         const cipher = alphabet.indexOf(l) + (n + Math.sign(n) * i) % 26;
-        return cipherText += (alphabet[cipher >= 0 ? cipher % 26 : 26 + cipher]);
+        return cipherText += alphabet[cipher >= 0 ? cipher % 26 : 26 + cipher];
     }, '');
 };
 
-const rotorMap = (str, target, source) => {
-    return [...str].map(l => target[source.indexOf(l)]).join``;
-};
+const rotorMap = (str, target, source) => [...str].map(l => target[source.indexOf(l)]).join``;
 
 const encode = (plainText) => {
     let cipherText = caesarMap(plainText, pseudoRandomNumber);
